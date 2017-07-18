@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>javascript设计模式 ① 正确使用面向对象编程的姿势!!! | 刘冬梅的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="javascript是一门弱语言，他有着分同一般的灵活性使它迅速的成为几乎人人必会的一门语言，but，你们使用的姿势真的正确吗？ 在以前的开发过程当中，老板：给我加个验证用户邮箱、验证用户短信…功能！">
+<meta name="keywords" content="js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript设计模式 ① 正确使用面向对象编程的姿势!!!">
+<meta property="og:url" content="www.liudongmei.top/2017/04/26/it-20170426js/index.html">
+<meta property="og:site_name" content="刘冬梅的博客">
+<meta property="og:description" content="javascript是一门弱语言，他有着分同一般的灵活性使它迅速的成为几乎人人必会的一门语言，but，你们使用的姿势真的正确吗？ 在以前的开发过程当中，老板：给我加个验证用户邮箱、验证用户短信…功能！">
+<meta property="og:image" content="https://dn-mhke0kuv.qbox.me/3adc2b183e7a22203dc2">
+<meta property="og:updated_time" content="2017-07-18T04:15:24.463Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javascript设计模式 ① 正确使用面向对象编程的姿势!!!">
+<meta name="twitter:description" content="javascript是一门弱语言，他有着分同一般的灵活性使它迅速的成为几乎人人必会的一门语言，but，你们使用的姿势真的正确吗？ 在以前的开发过程当中，老板：给我加个验证用户邮箱、验证用户短信…功能！">
+<meta name="twitter:image" content="https://dn-mhke0kuv.qbox.me/3adc2b183e7a22203dc2">
+  
+    <link rel="alternate" href="/atom.xml" title="刘冬梅的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">刘冬梅的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">保持专注，持续发布。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="www.liudongmei.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-it-20170426js" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/26/it-20170426js/" class="article-date">
+  <time datetime="2017-04-26T01:52:08.000Z" itemprop="datePublished">2017-04-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      javascript设计模式 ① 正确使用面向对象编程的姿势!!!
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>javascript是一门弱语言，他有着分同一般的灵活性使它迅速的成为几乎人人必会的一门语言，but，你们使用的姿势真的正确吗？</p>
+<p>在以前的开发过程当中，老板：给我加个验证用户邮箱、验证用户短信…功能！</p>
+<a id="more"></a>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">checkMessage</span>(<span class="params"></span>)</span>&#123;...&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">checkEmail</span>(<span class="params"></span>)</span>&#123;...&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> ... //茫茫多的函数</span></div></pre></td></tr></table></figure>
+<p>这样写好了之后 function 是全局的变量，那么是全局的就难免会对项目javascript环境造成污染，可能会对其他同事造成影响，我们首先要考虑会不会影响别人，如果别人重名对你的checkMessage覆盖，那么这样的BUG是很难发现的。为了不造成太多的全局污染，我们可以这样写：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> checkObject = &#123;</div><div class="line">    <span class="attr">checkMessage</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;,</div><div class="line">    <span class="attr">checkEmail</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;,</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>首先说明，并不是这样写就不会造成污染了，checkObject依旧是全局变量，那么好处在哪里呢？想一下如果Jquery的$被覆盖了，那么我们页面的</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$.each | $.extends | $(#id) | $...</div></pre></td></tr></table></figure>
+<p>都失效了，那么我们很容易定位问题: Jquery出问题了！checkObject也是一样,当checkObject出问题了，我们很容易定位错误。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">调用：checkObject.checkMessage() 即可</div></pre></td></tr></table></figure>
+<p>那么问题又来了：如果有同事用我的checkObject搞一些事情呢？它可以直接用我的方法么？当然可以，问题是，你买了一本书你愿意别人乱写乱画么？我们可以改造一下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> checkObject = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">        <span class="attr">checkMessage</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;,</div><div class="line">        <span class="attr">checkEmail</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;,</div><div class="line">        ...</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们把方法通过function的调用返回，这样别人可以这样用 ：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> check = checkObject();</div><div class="line">check.checkEmail();</div></pre></td></tr></table></figure>
+<p>我们可以再完善一下，把checkObject看成java的类，checkMessage,checkEmail看成java的public 公有方法,既然看成类了，我们可以把checkObject写成大写CheckObject</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> CheckObject = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">this</span>.checkMessage = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;,</div><div class="line">    <span class="keyword">this</span>.checkEmail = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;,</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>别人调用:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> check = <span class="keyword">new</span> CheckObject(); <span class="comment">//既然是一个类了，就要 new 来实例化了</span></div><div class="line">check.checkEmail();</div></pre></td></tr></table></figure>
+<p>每一次通过new创建新对象的时候，新创建的对象都会对类this上的属性进行复制，你定义了两个那么就复制两次，那么再更多呢？是不是感觉有些奢侈呢，考虑我们可以运用javascript的原型prototype来创建它：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> CheckObject = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line">CheckObject.prototype.checkMessage = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;,</div><div class="line">CheckObject.prototype.checkEmail = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;,</div><div class="line">...</div></pre></td></tr></table></figure>
+<p>你嫌麻烦？</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> CheckObject = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line">CheckObject.prototype&#123;</div><div class="line"><span class="attr">checkMessage</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;,</div><div class="line"><span class="attr">checkEmail</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;,</div><div class="line">...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样我们的方法都复制到CheckObject的原型连上去了，创建出来的对象都是通过prototype依次寻找，都绑定在CheckObject的原型上<strong>proto</strong></p>
+<p><img src="https://dn-mhke0kuv.qbox.me/3adc2b183e7a22203dc2" alt=""></p>
+<p>随便看一下Jquery的原型链，是不是很熟悉的方法呢？<br>同志们是否好奇Jquery的方法是如何链式调用的呢？很简单，我来模拟一下</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> CheckObject = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line">CheckObject.prototype&#123;</div><div class="line"><span class="attr">checkMessage</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; ... return <span class="keyword">this</span> &#125;,</div><div class="line"><span class="attr">checkEmail</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; ... return <span class="keyword">this</span> &#125;,</div><div class="line">...</div><div class="line"></div><div class="line"></div><div class="line">CheckObject check = <span class="keyword">new</span> CheckObject();</div><div class="line">check.checkMessage().checkEmail();</div></pre></td></tr></table></figure>
+<p>就这么简单，我们只需要将this指代的当前对象全部返回即可。</p>
+<p>咳咳，言归正传，回到面向对象编程的课题上</p>
+<p>java中有 private声明的私有变量、 有通过public的getter setter方法进行通信，有static修饰的静态变量，静态方法，有构造器，那么javascript可以使用这样的设计模式么？可以，跟我往下看:</p>
+<p>我们去商店买烟</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> Smoke = <span class="function"><span class="keyword">function</span>(<span class="params">id,name</span>)</span>&#123;</div><div class="line">    <span class="comment">//私有属性</span></div><div class="line">    <span class="keyword">var</span> num = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="comment">//对象的公有属性  （需要new）</span></div><div class="line">    <span class="keyword">this</span>.id = id;</div><div class="line"></div><div class="line">    <span class="comment">//私有方法</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">checkID</span>(<span class="params"></span>)</span>&#123; <span class="keyword">return</span> <span class="literal">true</span>&#125;;</div><div class="line"></div><div class="line">    <span class="comment">//公有 setter getter 构造函数</span></div><div class="line">    <span class="keyword">this</span>.setName = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>)</span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">this</span>.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//对象的公有属性  （需要new）</span></div><div class="line">    <span class="keyword">this</span>.information = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="comment">//只有在Smoke内部才能调用checkID()</span></div><div class="line">        <span class="keyword">if</span>(checkID()) <span class="keyword">return</span> <span class="keyword">this</span>.name+<span class="string">'香烟'</span>+<span class="string">'订单号 :'</span>+<span class="keyword">this</span>.id</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">Smock.prototype = &#123;</div><div class="line">    <span class="attr">money</span>:<span class="string">'10元'</span>,  <span class="comment">//公有属性（不需要new） 直接Smoke.money[想没想到Array的length?]</span></div><div class="line">    other:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> smoke = <span class="keyword">new</span> Smoke(<span class="number">994857</span>,<span class="string">'煊赫门'</span>);</div><div class="line">smoke.information(); <span class="comment">//"undefined香烟订单号 :994857" ps:因为我们没对Smoke的name属性赋值</span></div><div class="line">smoke.setName(<span class="string">'煊赫门'</span>); <span class="comment">//我们赋值</span></div><div class="line">smoke.information(); <span class="comment">//"煊赫门香烟订单号 :994857"</span></div><div class="line">smoke.num; <span class="comment">//undefined ps:很明显他是私有属性</span></div><div class="line">smoke.checkID();<span class="comment">//error is not function ps:很明显私有方法</span></div><div class="line">如果我们没有<span class="keyword">new</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> smoke = Smoke(<span class="number">994857</span>,<span class="string">'煊赫门'</span>);</div><div class="line">smoke.information(); <span class="comment">//Uncaught TypeError: Cannot read property 'information' of undefined</span></div><div class="line">纳尼报错了？</div><div class="line"></div><div class="line">smoke <span class="comment">//undefind</span></div><div class="line">smoke.money; <span class="comment">//10元 (好像明白了什么......)</span></div></pre></td></tr></table></figure>
+<p>别急让我们看下window</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">window</span>.information(); <span class="comment">// "undefined香烟订单号 :994857"</span></div></pre></td></tr></table></figure>
+<p>恍然大悟，因为new是可以对当前对象（Smoke)的this不停地赋值【上面讲过】，而上面的没有new相当于全局执行了Smoke() 所以是他的this 指向到 window去了！<br>怎么避免这种无操作呢？我们在Smoke内部进行类型检查：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> Smoke = <span class="function"><span class="keyword">function</span>(<span class="params">id,name</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> num = <span class="number">0</span>;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">checkID</span>(<span class="params"></span>)</span>&#123; <span class="keyword">return</span> <span class="literal">true</span>&#125;;</div><div class="line">    <span class="comment">//判断this在执行过程中是不是属于Smoke，如果是说明是new过的  0.0</span></div><div class="line">    <span class="keyword">if</span>(<span class="keyword">this</span> <span class="keyword">instanceof</span> Smoke)&#123;</div><div class="line">        <span class="keyword">this</span>.id = id;</div><div class="line">        <span class="keyword">this</span>.setName = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>)</span>&#123;</div><div class="line">            <span class="keyword">this</span>.name = name;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">this</span>.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.name;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//对象的公有属性  （需要new）</span></div><div class="line">        <span class="keyword">this</span>.information = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            <span class="comment">//只有在Smoke内部才能调用checkID()</span></div><div class="line">            <span class="keyword">if</span>(checkID()) <span class="keyword">return</span> <span class="keyword">this</span>.name+<span class="string">'香烟'</span>+<span class="string">'订单号 :'</span>+<span class="keyword">this</span>.id</div><div class="line"></div><div class="line">        &#125;</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Smoke(id,name);<span class="comment">//内部重新new一个  0.0</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>看完了么，感觉爽不，是不是感觉就是在写java呢，其实javascript就是灵活在这里，这只是javascript一种常用的面向对象设计模式，后面我会将更多的设计模式，这些设计模式都是经过前人无数心血总结出来给我们的，我们为什么不用呢？</p>
+<hr>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="www.liudongmei.top/2017/04/26/it-20170426js/" data-id="cj592jy2r0008k8ww9eud7qkh" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/04/26/vue-cli/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          vue-cli#2.0 webpack 配置分析
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/04/26/mock/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Mock 平台 - Easy Mock 在线数据模拟平台</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ajax/">Ajax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp/">gulp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/immutable/">immutable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/itemr2/">itemr2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuex/">vuex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习/">学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小技巧/">小技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心得/">心得</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/环境/">环境</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/ES6/" style="font-size: 12.5px;">ES6</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/angular/" style="font-size: 17.5px;">angular</a> <a href="/tags/gulp/" style="font-size: 10px;">gulp</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/immutable/" style="font-size: 10px;">immutable</a> <a href="/tags/itemr2/" style="font-size: 10px;">itemr2</a> <a href="/tags/javascript/" style="font-size: 12.5px;">javascript</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 12.5px;">mac</a> <a href="/tags/vuex/" style="font-size: 10px;">vuex</a> <a href="/tags/学习/" style="font-size: 12.5px;">学习</a> <a href="/tags/小技巧/" style="font-size: 10px;">小技巧</a> <a href="/tags/心得/" style="font-size: 10px;">心得</a> <a href="/tags/环境/" style="font-size: 10px;">环境</a> <a href="/tags/随笔/" style="font-size: 15px;">随笔</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/07/12/vuex/">vuex理解</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/04/react/">React文档翻译 (快速入门)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/25/it-2017Immutable/">Immutable的认识</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/12/ajax/">原生Ajax的实现</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/01/it-20170601js/">谈谈JS构造函数!!</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 个人博客<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

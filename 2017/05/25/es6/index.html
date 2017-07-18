@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>搭建ES6运行环境 | 刘冬梅的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="当ES5还没有完全普及时，ES6就接踵而来了，2015年6月17日，ECMAScript 6发布正式版本，即ECMAScript 2015，我们也简称它为ES6或ES2015。在发布之后的将近一年内，很多小伙伴都踊跃的学习这门新的语言，之所以说是一门新的语言，是因为跟ES5相比，语法方面变化确实有点大，可以说新的JavaScript语法看上去有种脱胎换骨的感觉。博主也曾跃跃欲试，看了很多语法方面的">
+<meta name="keywords" content="ES6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="搭建ES6运行环境">
+<meta property="og:url" content="www.liudongmei.top/2017/05/25/es6/index.html">
+<meta property="og:site_name" content="刘冬梅的博客">
+<meta property="og:description" content="当ES5还没有完全普及时，ES6就接踵而来了，2015年6月17日，ECMAScript 6发布正式版本，即ECMAScript 2015，我们也简称它为ES6或ES2015。在发布之后的将近一年内，很多小伙伴都踊跃的学习这门新的语言，之所以说是一门新的语言，是因为跟ES5相比，语法方面变化确实有点大，可以说新的JavaScript语法看上去有种脱胎换骨的感觉。博主也曾跃跃欲试，看了很多语法方面的">
+<meta property="og:updated_time" content="2017-07-18T04:15:21.234Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="搭建ES6运行环境">
+<meta name="twitter:description" content="当ES5还没有完全普及时，ES6就接踵而来了，2015年6月17日，ECMAScript 6发布正式版本，即ECMAScript 2015，我们也简称它为ES6或ES2015。在发布之后的将近一年内，很多小伙伴都踊跃的学习这门新的语言，之所以说是一门新的语言，是因为跟ES5相比，语法方面变化确实有点大，可以说新的JavaScript语法看上去有种脱胎换骨的感觉。博主也曾跃跃欲试，看了很多语法方面的">
+  
+    <link rel="alternate" href="/atom.xml" title="刘冬梅的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">刘冬梅的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">保持专注，持续发布。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="www.liudongmei.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-es6" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/05/25/es6/" class="article-date">
+  <time datetime="2017-05-25T08:50:00.000Z" itemprop="datePublished">2017-05-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      搭建ES6运行环境
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>当ES5还没有完全普及时，ES6就接踵而来了，2015年6月17日，ECMAScript 6发布正式版本，即ECMAScript 2015，我们也简称它为ES6或ES2015。在发布之后的将近一年内，很多小伙伴都踊跃的学习这门新的语言，之所以说是一门新的语言，是因为跟ES5相比，语法方面变化确实有点大，可以说新的JavaScript语法看上去有种脱胎换骨的感觉。博主也曾跃跃欲试，看了很多语法方面的教程，可是无奈浏览器还未完全支持ES6的规范，只看不练，有种眼高手低的感觉，相信朋友们也会有同样的心情，那么怎样可以愉快的写ES6代码，进而将学到的东西转化成实践呢，别担心，今天我们就来学习ES6构建方面的知识，并搭建一个简单的学习环境。</p>
+<a id="more"></a>
+<p>首先需要介绍一个ES6开发利器：Babel。<br>Babel是一个编译器，负责将源代码转换成指定的语法的目标代码，可以使之很好的在运行环境中执行我们的代码。下面我们就来详细介绍这个神器，利用它来编译我们的ES6代码。<br>Babel给我们提供了一个很方便的命令行工具：babel-cli，利用它我们可以在命令行中执行编译命令，我们只需使用npm来安装它即可：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -g babel-cli</div></pre></td></tr></table></figure></p>
+<p>   除此之外，我们还需要安装转码规则包，Babel支持很多语法的转码，比如我们想要将ES6转换成ES5，那么需要安装babel-preset-es2015包，如果我们想要编译React源码，就需要安装babel-preset-react，这里我们需要安装babel-preset-es2015。为此我们创建一个babel-test目录，在这个目录里我们创建两个目录，es6和js，分别用于放置ES6源代码和编译后的ES5目标代码，然后我们使用“npm init –yes”命令生成一个默认的package.json文件，babel-test目录结构如下图所示：</p>
+<p>然后在当前目录执行下面这行命令安装ES6转码规则包：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install babel-preset-es2015 --save-dev</div></pre></td></tr></table></figure></p>
+<p>在es6目录中我们创建了一个test.es6文件用于写入ES6源代码，Babel编译源文件时没有过多的限制，所以我们也可以选择使用js或es作为文件后缀名。现在我们将下面这段ES6代码写入到test.es6中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">let name = &apos;Scott&apos;;</div><div class="line">let greeting = `hello $&#123;name&#125;`;</div><div class="line">console.log(greeting);</div></pre></td></tr></table></figure></p>
+<p>接下来我们就可以来运行babel的命令编译我们的ES6源代码了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">babel es6/test.es6 --out-file js/test.js --presets es2015</div></pre></td></tr></table></figure>
+<p>这行命令的含义是：编译es6下面的test.es6文件，输出文件为js下面的test.js，同时指定编译规则包为es2015。命令执行完成后，我们会在js目录中找到一个test.js文件，如图所示：</p>
+<p>看以看到，上面的ES6语法已经被编译成ES5的语法了，这个文件就可以被加载到现有的运行环境执行了。另外，如果我们也可以编译整个目录的源文件，只需指定“–out-dir”参数即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">babel es6 --out-dir js --presets es2015</div></pre></td></tr></table></figure>
+<p>这行命令的作用是对整个es6目录中的文件进行编译，编译结果输出到js目录，如下图所示：</p>
+<p>到目前为止，我们仍手动执行babel命令编译源代码，并且我们使用了全局的babel-cli库，这显然不是最好的解决方案。如果我们checkout出一个项目，必须要先在全局安装babel-cli库才能运行，我们不希望有这样的依赖。另外不同的项目依赖库的版本可能都不同，全局的babel-cli库也不能保证兼容各个项目中其他依赖库的版本。除此之外，每次手动运行编译命令也太繁琐了，我们希望将babel-cli库安装到本地，并且使用一个简单的命令执行编译任务。<br>首先我们需要在本地安装babel-cli库：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install babel-cli --save-dev</div></pre></td></tr></table></figure></p>
+<p>现在我们可以卸载全局的babel-cli库了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm uninstall -g babel-cli</div></pre></td></tr></table></figure></p>
+<p>最后，我们需要在package.json里面修改一下scripts：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&quot;scripts&quot;: &#123;</div><div class="line">    &quot;compile&quot;: &quot;babel es6 --out-dir js --presets es2015&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>修改完成之后，我们就可以使用npm来运行这个编译任务了，只需下面一条简单的指令即可：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm run compile</div></pre></td></tr></table></figure></p>
+<p>上面只是利用babel将ES6源代码编译成JS，在开发中，我们还需要考虑更多东西，比如模块化开发、自动编译和构建等等。接下来，我们就搭建一个简单的ES6开发环境，来支持ES6学习阶段的开发。<br>首先，我们创建一个简单的应用，它包含一个index.html和es6目录，es6目录中又包含hello.es6和main.es6两个文件，在构建完成后，会多出js和bundle两个目录，分别放置编译后的JS代码和打包后的bundle文件：</p>
+<p>其中，hello.es6定义了greet函数，而main.es6是入口文件，下面是相关的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">//hello.es6</div><div class="line"></div><div class="line">function greet(name) &#123;</div><div class="line">    return new Promise((resolve, reject) =&gt; &#123;</div><div class="line">        setTimeout(() =&gt; &#123;</div><div class="line">            resolve(&apos;hello &apos; + name);</div><div class="line">        &#125;, 1000);</div><div class="line">    &#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">exports.greet = greet;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">//main.es6</div><div class="line"></div><div class="line">import &quot;babel-polyfill&quot;;</div><div class="line"></div><div class="line">import &#123;greet&#125; from &apos;./hello&apos;;</div><div class="line"></div><div class="line">greet(&apos;Scott&apos;).then((greeting) =&gt; &#123;</div><div class="line">    document.getElementById(&apos;container&apos;).innerHTML += greeting;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">document.getElementById(&apos;container&apos;).innerHTML = &apos;I am greeting: &apos;;</div></pre></td></tr></table></figure>
+<p>可以看到，hello.es6中使用了ES6的箭头函数和Promise来定义一个greet函数，模拟1秒后返回一个hello开头的字符串，而main.es6中引入了hello.es6并调用了greet函数，最后将结果刷新到DOM元素中。<br>要使这两个源代码文件生效，首先需要把它们编译成JS，然后再将JS文件打包，现在我们就来使用gulp的方式构建这个过程。<br>要完成这个任务，我们需要先安装相关的依赖包：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&quot;devDependencies&quot;: &#123;</div><div class="line">  &quot;babel-polyfill&quot;: &quot;^6.9.1&quot;,</div><div class="line">  &quot;babel-preset-es2015&quot;: &quot;^6.6.0&quot;,</div><div class="line">  &quot;gulp&quot;: &quot;^3.9.1&quot;,</div><div class="line">  &quot;gulp-babel&quot;: &quot;^6.1.2&quot;,</div><div class="line">  &quot;gulp-browserify&quot;: &quot;^0.5.1&quot;,</div><div class="line">  &quot;gulp-connect&quot;: &quot;^3.2.2&quot;,</div><div class="line">  &quot;gulp-rename&quot;: &quot;^1.2.2&quot;,</div><div class="line">  &quot;gulp-sync&quot;: &quot;^0.1.4&quot;,</div><div class="line">  &quot;gulp-uglify&quot;: &quot;^1.5.3&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>其中，babel-polyfill是ES6的补丁，由于babel只支持ES6语法部分的编译，对于新增的类我们还需要安装额外的polyfill，虽然现在Chrome和Firefox都已经添加了Promise等新增的类，但为了兼容旧版本的浏览器，这里还是安装比较好。<br>然后，我们就创建几个简单的tasks，下面是gulpfile.js的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">var gulp = require(&apos;gulp&apos;);</div><div class="line">var babel = require(&apos;gulp-babel&apos;);</div><div class="line">var connect = require(&apos;gulp-connect&apos;);</div><div class="line">var browserify = require(&apos;gulp-browserify&apos;);</div><div class="line">var uglify = require(&apos;gulp-uglify&apos;);</div><div class="line">var rename = require(&apos;gulp-rename&apos;);</div><div class="line">var gulpsync = require(&apos;gulp-sync&apos;)(gulp);</div><div class="line"></div><div class="line">gulp.task(&apos;compile-es6&apos;, function() &#123;</div><div class="line">  return gulp.src(&apos;app/es6/*&apos;)</div><div class="line">    .pipe(babel(&#123;</div><div class="line">      presets: [&apos;es2015&apos;]</div><div class="line">    &#125;))</div><div class="line">    .pipe(gulp.dest(&apos;app/js&apos;));</div><div class="line">&#125;);</div><div class="line"></div><div class="line">gulp.task(&apos;pack-js&apos;, function() &#123;</div><div class="line">  return gulp.src(&apos;app/js/main.js&apos;)</div><div class="line">    .pipe(browserify())</div><div class="line">    .pipe(rename(&apos;bundle.js&apos;))</div><div class="line">    .pipe(gulp.dest(&apos;app/bundle&apos;));</div><div class="line">&#125;);</div><div class="line"></div><div class="line">gulp.task(&apos;compress-bundle&apos;, function() &#123;</div><div class="line">  return gulp.src(&apos;app/bundle/bundle.js&apos;)</div><div class="line">    .pipe(uglify())</div><div class="line">    .pipe(rename(&apos;bundle.min.js&apos;))</div><div class="line">    .pipe(gulp.dest(&apos;app/bundle&apos;));</div><div class="line">&#125;);</div><div class="line"></div><div class="line">//build source files to released bundle file</div><div class="line">gulp.task(&apos;build&apos;, gulpsync.sync([&apos;compile-es6&apos;, &apos;pack-js&apos;, &apos;compress-bundle&apos;]), function() &#123;</div><div class="line">  if (process.argv.pop() == &apos;--dev&apos;) &#123;</div><div class="line">    //watch any change and then re-run the tasks</div><div class="line">    gulp.watch(&apos;app/es6/*&apos;, gulpsync.sync([&apos;compile-es6&apos;, &apos;pack-js&apos;, &apos;compress-bundle&apos;]));</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">//run a server listening at port 8000</div><div class="line">gulp.task(&apos;server&apos;, function() &#123;</div><div class="line">  connect.server(&#123;</div><div class="line">    root: &apos;app&apos;,</div><div class="line">    port: 8000,</div><div class="line">    livereload: true</div><div class="line">  &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>最后，只需在命令行中执行两个命令就可以了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gulp build --dev</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gulp server</div></pre></td></tr></table></figure>
+<p>第一个命令我们是指定了开发模式，开发模式会监听es6目录中的文件改动，并重新构建；而第二个命令是用来启动一个服务，在8000端口监听。</p>
+<hr>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="www.liudongmei.top/2017/05/25/es6/" data-id="cj592jy280001k8wwmgzpu536" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/06/01/it-20170601js/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          谈谈JS构造函数!!
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/05/17/qianduan/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">一些心得</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ajax/">Ajax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp/">gulp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/immutable/">immutable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/itemr2/">itemr2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuex/">vuex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习/">学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小技巧/">小技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心得/">心得</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/环境/">环境</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/ES6/" style="font-size: 12.5px;">ES6</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/angular/" style="font-size: 17.5px;">angular</a> <a href="/tags/gulp/" style="font-size: 10px;">gulp</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/immutable/" style="font-size: 10px;">immutable</a> <a href="/tags/itemr2/" style="font-size: 10px;">itemr2</a> <a href="/tags/javascript/" style="font-size: 12.5px;">javascript</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 12.5px;">mac</a> <a href="/tags/vuex/" style="font-size: 10px;">vuex</a> <a href="/tags/学习/" style="font-size: 12.5px;">学习</a> <a href="/tags/小技巧/" style="font-size: 10px;">小技巧</a> <a href="/tags/心得/" style="font-size: 10px;">心得</a> <a href="/tags/环境/" style="font-size: 10px;">环境</a> <a href="/tags/随笔/" style="font-size: 15px;">随笔</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/07/12/vuex/">vuex理解</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/04/react/">React文档翻译 (快速入门)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/25/it-2017Immutable/">Immutable的认识</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/12/ajax/">原生Ajax的实现</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/01/it-20170601js/">谈谈JS构造函数!!</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 个人博客<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

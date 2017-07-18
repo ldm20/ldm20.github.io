@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>JavaScript 设计模式 ② 巧用&#39;工厂模式&#39;和&#39;创建者&#39;模式 | 刘冬梅的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="我为什么把他们两个放在一起讲？我觉得这两个设计模式有相似之处，有时候会一个设计模式不能满足你的需求而采用另一种设计模式。基于这点考虑，而且为了大家更好地理解，我放到了一起，加深大家的印象，活学活用。">
+<meta name="keywords" content="js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 设计模式 ② 巧用&#39;工厂模式&#39;和&#39;创建者&#39;模式">
+<meta property="og:url" content="www.liudongmei.top/2017/04/28/it-20170428js/index.html">
+<meta property="og:site_name" content="刘冬梅的博客">
+<meta property="og:description" content="我为什么把他们两个放在一起讲？我觉得这两个设计模式有相似之处，有时候会一个设计模式不能满足你的需求而采用另一种设计模式。基于这点考虑，而且为了大家更好地理解，我放到了一起，加深大家的印象，活学活用。">
+<meta property="og:updated_time" content="2017-07-18T04:15:25.280Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript 设计模式 ② 巧用&#39;工厂模式&#39;和&#39;创建者&#39;模式">
+<meta name="twitter:description" content="我为什么把他们两个放在一起讲？我觉得这两个设计模式有相似之处，有时候会一个设计模式不能满足你的需求而采用另一种设计模式。基于这点考虑，而且为了大家更好地理解，我放到了一起，加深大家的印象，活学活用。">
+  
+    <link rel="alternate" href="/atom.xml" title="刘冬梅的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">刘冬梅的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">保持专注，持续发布。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="www.liudongmei.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-it-20170428js" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/28/it-20170428js/" class="article-date">
+  <time datetime="2017-04-28T01:28:24.000Z" itemprop="datePublished">2017-04-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JavaScript 设计模式 ② 巧用&#39;工厂模式&#39;和&#39;创建者&#39;模式
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我为什么把他们两个放在一起讲？我觉得这两个设计模式有相似之处，有时候会一个设计模式不能满足你的需求而采用另一种设计模式。基于这点考虑，而且为了大家更好地理解，我放到了一起，加深大家的印象，活学活用。</p>
+<a id="more"></a>
+<blockquote>
+<p>[这里我为了能更好的体现下设计模式与JS本体语言的结合，我用了一点继承关系.<br>有的同学都不知道JS能继承，就算大家不懂继承也希望大家能看下去，弄懂它！]</p>
+</blockquote>
+<h3 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h3><ul>
+<li>创建对象跟对不同需求进行不同的实例化</li>
+</ul>
+<p>在我们Team协作开发过程当中，不同于我们写个人项目，对全局变量的限制很大，我们要尽量少的使用全局变量，对于一类对象在不同需求上的不同使用，甚至将一些有些类似的方法抽象化，可以用工厂模式来负责创建这些对象，调用者可以使用一部分资源也可以在基础上私人订制一套资源。</p>
+<p>就拿昨天入群的小伙伴举个栗子：他设计一个网页播放器有四个按钮：</p>
+<p>我们不讨论他的实现方式，我们按照工厂模式来简单创建一个吧！</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">wangyiMusicAction</span>(<span class="params">action</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> o = <span class="keyword">new</span> <span class="built_in">Object</span>;</div><div class="line">    o.vender = <span class="string">'网易云音乐'</span>;</div><div class="line">    o.playingMusic = <span class="string">'see you again'</span></div><div class="line">    <span class="keyword">switch</span> (action)&#123;</div><div class="line">        <span class="keyword">case</span> <span class="string">'last'</span>:</div><div class="line">            o.information = &#123;<span class="attr">currentMusic</span>:<span class="string">'Ich will'</span>,<span class="attr">status</span>:<span class="string">'200|404'</span>,<span class="attr">message</span>:<span class="string">'上一曲'</span>&#125;</div><div class="line">            <span class="keyword">break</span></div><div class="line">        <span class="keyword">case</span> <span class="string">'next'</span>:</div><div class="line">            o.information = &#123;<span class="attr">currentMusic</span>:<span class="string">'一人我编程累'</span>,<span class="attr">status</span>:<span class="string">'200|404'</span>,<span class="attr">message</span>:<span class="string">'下一曲'</span>&#125;</div><div class="line">            <span class="keyword">break</span></div><div class="line">        <span class="keyword">case</span> <span class="string">'play'</span>:</div><div class="line">            o.information = &#123;<span class="attr">currentMusic</span>:<span class="string">'see you again'</span>,<span class="attr">status</span>:<span class="string">'200|500'</span>,<span class="attr">message</span>:<span class="string">'播放'</span>&#125;</div><div class="line">            <span class="keyword">break</span></div><div class="line">        <span class="keyword">case</span> <span class="string">'mute'</span>:</div><div class="line">            o.information = &#123;<span class="attr">currentMusic</span>:<span class="string">'see you again'</span>,<span class="attr">status</span>:<span class="string">'200|500'</span>,<span class="attr">message</span>:<span class="string">'静音'</span>&#125;</div><div class="line">            <span class="keyword">break</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> o;</div><div class="line"></div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> music = wangyiMusicAction(<span class="string">'next'</span>)</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'音乐提供商 : '</span>+music.vender);</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'正在播放 : '</span>+music.playingMusic);</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'执行动作 : '</span> +music.information.message);</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'接口状态 : '</span> +music.information.status);</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'执行动作后歌曲 : '</span> +music.information.currentMusic);</div><div class="line"></div><div class="line">----------执行结果--------</div><div class="line"></div><div class="line">音乐提供商 : 网易云音乐</div><div class="line">正在播放 : see you again</div><div class="line">执行动作 : 下一曲</div><div class="line">接口状态 : <span class="number">200</span>|<span class="number">404</span></div><div class="line">执行动作后歌曲 : 一人我编程累</div></pre></td></tr></table></figure>
+<p>这其实使我们经常使用的，不过这是面向过程的，不太符合我们的设计模式。我们用上篇学到的模式：对象</p>
+<p>我们可以修改一下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> WangyiMusicAction = <span class="function"><span class="keyword">function</span>(<span class="params">action</span>)</span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">this</span>.vender = <span class="string">'网易云音乐'</span>;</div><div class="line">    <span class="keyword">this</span>.playingMusic = <span class="string">'see you again'</span></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">WangyiMusicAction.prototype = &#123;</div><div class="line">    <span class="attr">last</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="keyword">this</span>.information = &#123;<span class="attr">currentMusic</span>:<span class="string">'Ich will'</span>,<span class="attr">status</span>:<span class="string">'200|404'</span>,<span class="attr">message</span>:<span class="string">'上一曲'</span>&#125;</div><div class="line">        &#125;,</div><div class="line"></div><div class="line">    <span class="attr">next</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="keyword">this</span>.information = &#123;<span class="attr">currentMusic</span>:<span class="string">'一人我编程累'</span>,<span class="attr">status</span>:<span class="string">'200|404'</span>,<span class="attr">message</span>:<span class="string">'下一曲'</span>&#125;</div><div class="line">        &#125;,</div><div class="line"></div><div class="line">    <span class="attr">play</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="keyword">this</span>.information = &#123;<span class="attr">currentMusic</span>:<span class="string">'see you again'</span>,<span class="attr">status</span>:<span class="string">'200|500'</span>,<span class="attr">message</span>:<span class="string">'播放'</span>&#125;</div><div class="line">        &#125;,</div><div class="line"></div><div class="line">    <span class="attr">mute</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="keyword">this</span>.information = &#123;<span class="attr">currentMusic</span>:<span class="string">'see you again'</span>,<span class="attr">status</span>:<span class="string">'200|500'</span>,<span class="attr">message</span>:<span class="string">'静音'</span>&#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> music = <span class="keyword">new</span> WangyiMusicAction()</div><div class="line">music.next(); <span class="comment">//执行下一曲动作</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'音乐提供商 : '</span>+music.vender);</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'正在播放 : '</span>+music.playingMusic);</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'执行动作 : '</span> +music.information.message);</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'接口状态 : '</span> +music.information.status);</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'执行动作后歌曲 : '</span> +music.information.currentMusic);</div><div class="line">音乐提供商 : 网易云音乐</div><div class="line">正在播放 : see you again</div><div class="line">执行动作 : 下一曲</div><div class="line">接口状态 : <span class="number">200</span>|<span class="number">400</span></div><div class="line"></div><div class="line">----------执行结果--------</div><div class="line"></div><div class="line">执行动作后歌曲 : 一人我编程累</div></pre></td></tr></table></figure>
+<p>这样就算是面向对象的了，虽然达到目的，但是上面所说的，但是这算是Music的网易云音乐实现版本、总不能再来一个QQMusic、XiaMiMusic吧？我们建立一个Factory工厂来管理所有的音乐：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">var</span> WangyiMusicAction = <span class="function"><span class="keyword">function</span>(<span class="params">action</span>)</span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">this</span>.vender = <span class="string">'网易云音乐'</span>;</div><div class="line">    <span class="keyword">this</span>.playingMusic = <span class="string">'see you again'</span></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//为网易音乐提供共有方法</span></div><div class="line">WangyiMusicAction.prototype = &#123;</div><div class="line">    <span class="attr">last</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">this</span>.information = &#123;<span class="attr">currentMusic</span>:<span class="string">'Ich will'</span>,<span class="attr">status</span>:<span class="string">'200|404'</span>,<span class="attr">message</span>:<span class="string">'上一曲'</span>&#125;</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    <span class="attr">next</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">this</span>.information = &#123;<span class="attr">currentMusic</span>:<span class="string">'一人我编程累'</span>,<span class="attr">status</span>:<span class="string">'200|404'</span>,<span class="attr">message</span>:<span class="string">'下一曲'</span>&#125;</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    <span class="attr">play</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">this</span>.information = &#123;<span class="attr">currentMusic</span>:<span class="string">'see you again'</span>,<span class="attr">status</span>:<span class="string">'200|500'</span>,<span class="attr">message</span>:<span class="string">'播放'</span>&#125;</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    <span class="attr">mute</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">this</span>.information = &#123;<span class="attr">currentMusic</span>:<span class="string">'see you again'</span>,<span class="attr">status</span>:<span class="string">'200|500'</span>,<span class="attr">message</span>:<span class="string">'静音'</span>&#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">var</span> QQMusicAction = <span class="function"><span class="keyword">function</span>(<span class="params">action</span>)</span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">this</span>.vender = <span class="string">'QQ音乐'</span>;</div><div class="line">    <span class="keyword">this</span>.playingMusic = <span class="string">'其实我不low'</span></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//为QQ音乐提供共有方法</span></div><div class="line">QQMusicAction.prototype = &#123;</div><div class="line">    <span class="attr">last</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">this</span>.information = &#123;<span class="attr">currentMusic</span>:<span class="string">'Ich will'</span>,<span class="attr">status</span>:<span class="string">'200|404'</span>,<span class="attr">message</span>:<span class="string">'上一曲'</span>&#125;</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    <span class="attr">next</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">this</span>.information = &#123;<span class="attr">currentMusic</span>:<span class="string">'网易才low'</span>,<span class="attr">status</span>:<span class="string">'200|404'</span>,<span class="attr">message</span>:<span class="string">'下一曲'</span>&#125;</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    <span class="attr">play</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">this</span>.information = &#123;<span class="attr">currentMusic</span>:<span class="string">'see you again'</span>,<span class="attr">status</span>:<span class="string">'200|500'</span>,<span class="attr">message</span>:<span class="string">'播放'</span>&#125;</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    <span class="attr">mute</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">this</span>.information = &#123;<span class="attr">currentMusic</span>:<span class="string">'see you again'</span>,<span class="attr">status</span>:<span class="string">'200|500'</span>,<span class="attr">message</span>:<span class="string">'静音'</span>&#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"><span class="comment">//音乐工厂</span></div><div class="line"><span class="keyword">var</span> MusicFactory = <span class="function"><span class="keyword">function</span>(<span class="params">type</span>)</span>&#123;</div><div class="line">    <span class="keyword">switch</span> (type)&#123;</div><div class="line">        <span class="keyword">case</span> <span class="string">'qq'</span>:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> QQMusicAction();</div><div class="line"></div><div class="line">        <span class="keyword">case</span> <span class="string">'wangyi'</span>:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> WangyiMusicAction()</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">var</span> music = <span class="keyword">new</span> MusicFactory(<span class="string">'qq'</span>)</div><div class="line">music.next(); <span class="comment">//执行下一曲动作</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'音乐提供商 : '</span>+music.vender);</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'正在播放 : '</span>+music.playingMusic);</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'执行动作 : '</span> +music.information.message);</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'接口状态 : '</span> +music.information.status);</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'执行动作后歌曲 : '</span> +music.information.currentMusic);</div><div class="line"></div><div class="line">----------执行结果--------</div><div class="line"></div><div class="line">音乐提供商 : QQ音乐</div><div class="line">正在播放 : 其实我不low</div><div class="line">执行动作 : 下一曲</div><div class="line">接口状态 : <span class="number">200</span>|<span class="number">404</span></div><div class="line">执行动作后歌曲 : 网易才low</div></pre></td></tr></table></figure>
+<p>这样调用者需要用音乐接口，只需要记住MusicFactory就可以了，MusicFactory就像一个大工厂，对于music可以返回他要的一切。</p>
+<p>好，我们回过头来看一下：</p>
+<p>第一种方法:是创建一个新的对象 o 对他来增强 属性 的功能来实现的.<br>第二种方法:是实例化对象来创建的。<br>第二种方法:如果他们继承同一个父类 BaseMusic 那么他们父类的原型方法是可以和它们公用的!<br>第一种方法:我们内部 new 了一个新的个体，就不能与父类共用了.</p>
+<p>具体哪种还是看你需求的，不过我更倾向第二种，因为他扩展性高，需求多的时候我们甚至可以将通用的抽离出来放到父类BaseMusic中。</p>
+<p>在下面的继承中我运用了类式继承</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">//基类（父类）music方法</span></div><div class="line"><span class="keyword">var</span> BaseMusic = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">this</span>.playingMusic = <span class="string">'see you again'</span></div><div class="line">&#125;</div><div class="line"><span class="comment">//实现通用方法</span></div><div class="line">BaseMusic.prototype = &#123;</div><div class="line">    <span class="attr">last</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">this</span>.information = &#123;<span class="attr">status</span>:<span class="string">'200|404'</span>,<span class="attr">message</span>:<span class="string">'上一曲'</span>&#125;</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    <span class="attr">next</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">this</span>.information = &#123;<span class="attr">currentMusic</span>:<span class="string">'一人我编程累'</span>,<span class="attr">status</span>:<span class="string">'200|404'</span>,<span class="attr">message</span>:<span class="string">'下一曲'</span>&#125;</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    <span class="attr">play</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">this</span>.information = &#123;<span class="attr">currentMusic</span>:<span class="string">'see you again'</span>,<span class="attr">status</span>:<span class="string">'200|500'</span>,<span class="attr">message</span>:<span class="string">'播放'</span>&#125;</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    <span class="attr">mute</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">this</span>.information = &#123;<span class="attr">currentMusic</span>:<span class="string">'see you again'</span>,<span class="attr">status</span>:<span class="string">'200|500'</span>,<span class="attr">message</span>:<span class="string">'静音'</span>&#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//网易云的不同于父类的构造方法</span></div><div class="line"><span class="keyword">var</span> WangyiMusicAction = <span class="function"><span class="keyword">function</span>(<span class="params">action</span>)</span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">this</span>.vender = <span class="string">'网易云音乐'</span>;</div><div class="line"></div><div class="line">&#125;</div><div class="line"><span class="comment">//这里通过prototype实现类继承</span></div><div class="line">WangyiMusicAction.prototype = <span class="keyword">new</span> BaseMusic();<span class="comment">//这些动作我都放在基类了，达到代码复用的目的</span></div><div class="line"></div><div class="line"><span class="comment">//QQ</span></div><div class="line"><span class="keyword">var</span> QQMusicAction = <span class="function"><span class="keyword">function</span>(<span class="params">action</span>)</span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">this</span>.vender = <span class="string">'QQ音乐'</span>;</div><div class="line">    <span class="keyword">this</span>.playingMusic = <span class="string">'其实我不low'</span></div><div class="line"></div><div class="line">&#125;</div><div class="line">QQMusicAction.prototype = <span class="keyword">new</span> BaseMusic() <span class="comment">//这些动作我都放在基类了，达到代码复用的目的</span></div><div class="line"></div><div class="line"><span class="comment">//音乐工厂</span></div><div class="line"><span class="keyword">var</span> MusicFactory = <span class="function"><span class="keyword">function</span>(<span class="params">type</span>)</span>&#123;</div><div class="line">    <span class="keyword">switch</span> (type)&#123;</div><div class="line">        <span class="keyword">case</span> <span class="string">'qq'</span>:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> QQMusicAction();</div><div class="line"></div><div class="line">        <span class="keyword">case</span> <span class="string">'wangyi'</span>:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> WangyiMusicAction()</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">var</span> music = <span class="keyword">new</span> MusicFactory(<span class="string">'wangyi'</span>)</div><div class="line">music.next(); <span class="comment">//执行下一曲动作</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'音乐提供商 : '</span>+music.vender);</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'正在播放 : '</span>+music.playingMusic);</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'执行动作 : '</span> +music.information.message);</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'接口状态 : '</span> +music.information.status);</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'执行动作后歌曲 : '</span> +music.information.currentMusic);</div><div class="line"></div><div class="line">----------执行结果--------</div><div class="line"></div><div class="line">音乐提供商 : 网易云音乐</div><div class="line">正在播放 : see you again</div><div class="line">执行动作 : 下一曲</div><div class="line">接口状态 : <span class="number">200</span>|<span class="number">404</span></div><div class="line">执行动作后歌曲 : 一人我编程累</div></pre></td></tr></table></figure>
+<p>这样看起来是不是更好、更简洁呢？</p>
+<h3 id="创建者模式"><a href="#创建者模式" class="headerlink" title="创建者模式"></a>创建者模式</h3><p>工厂模式职责：我不管你想干啥，我只返回给你一个你想要的对象<br>创建者模式职责：主要针对复杂业务的解耦，算是工厂的一种拆解、拼接。我可以将你的需求分解多个对象创建，更关心的是创建对象的过程。<br>不复杂不能突显出他的魅力,举个稍微复杂栗子：</p>
+<p>我们公司是卖车的，用户下单要买车，这个车呢：</p>
+<p>品牌：迈巴赫、林肯、宾利、特斯拉[如果不选品牌，默认特斯拉]<br>颜色：赤橙黄绿青蓝紫…[如果不选颜色，默认黄色]<br>动力：燃油、电力、混合动力[如果不选动力，默认电力]<br>购买人的一些备注信息[购买人可能会修改备注需要提供方法]<br>针对购买人选择的车型返回对车型的简单描述[描述可以修改]<br>最终根据用户选择来生成一个订单：<br>想下这用工厂模式是不是要写很多的if else来返回这么一个Car的对象呢？</p>
+<p>我们先将 车 购买人的动作 反馈 分解为三个对象再在最后进行拼接 ：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//创建一个汽车</span></div><div class="line"><span class="keyword">var</span> Car  = <span class="function"><span class="keyword">function</span>(<span class="params">param</span>)</span>&#123;</div><div class="line">    <span class="keyword">this</span>.color = param &amp;&amp; param.color || <span class="string">'yellow'</span>;</div><div class="line">    <span class="keyword">this</span>.brand = param &amp;&amp; param.brand || <span class="string">'Tesla'</span>;</div><div class="line">    <span class="keyword">this</span>.power = param &amp;&amp; param.power || <span class="string">'electric'</span>;</div><div class="line">&#125;</div><div class="line"><span class="comment">//提供原型方法</span></div><div class="line">Car.prototype = &#123;</div><div class="line">    <span class="attr">getColor</span> : <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.color;</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">getBrand</span> : <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.brand;</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">getPower</span> : <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.power;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//创建一个反馈</span></div><div class="line"><span class="keyword">var</span> FeedBack = <span class="function"><span class="keyword">function</span>(<span class="params">brand</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> that = <span class="keyword">this</span>;</div><div class="line">    (<span class="function"><span class="keyword">function</span>(<span class="params">brand,that</span>)</span>&#123;</div><div class="line">        <span class="keyword">switch</span> (brand)&#123;</div><div class="line">            <span class="keyword">case</span> <span class="string">'Tesla'</span>:</div><div class="line">                <span class="comment">// that.brand = brand;</span></div><div class="line">                that.information = <span class="string">'特斯拉是好车'</span></div><div class="line">                <span class="keyword">break</span></div><div class="line">            <span class="keyword">case</span> <span class="string">'Rolls'</span> :</div><div class="line">                that.information = <span class="string">'劳斯来时是好车'</span></div><div class="line">        &#125;</div><div class="line">    &#125;)(brand,that)</div><div class="line">&#125;</div><div class="line"></div><div class="line">FeedBack.prototype.changeBrand = <span class="function"><span class="keyword">function</span> (<span class="params">information</span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.information = information;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">//创建一个顾客</span></div><div class="line"><span class="keyword">var</span> Client = <span class="function"><span class="keyword">function</span>(<span class="params">name,message</span>)</span>&#123;</div><div class="line">    <span class="keyword">this</span>.name = name;</div><div class="line">    <span class="keyword">this</span>.message = message || <span class="string">'无留言'</span>;</div><div class="line">&#125;</div><div class="line"><span class="comment">//顾客修改备注</span></div><div class="line">Client.prototype.changeMessage = <span class="function"><span class="keyword">function</span>(<span class="params">message</span>)</span>&#123;</div><div class="line">    <span class="keyword">this</span>.message = message;</div><div class="line">&#125;</div><div class="line"><span class="comment">//然后重点在这里！我们在这里将我们分解的拼接起来。</span></div><div class="line"><span class="keyword">var</span> Order = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> object = <span class="keyword">new</span> Car();</div><div class="line">    object.client  = <span class="keyword">new</span> Client(name);</div><div class="line">    object.feedBack = <span class="keyword">new</span> FeedBack(object.brand);</div><div class="line">    <span class="keyword">return</span> object;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">var</span> orderCar = <span class="keyword">new</span> Order(<span class="string">'Vendar-MH'</span>);</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'The'</span> + orderCar.client.name + <span class="string">'先生、下单一辆'</span> + orderCar.color + <span class="string">'的'</span> + orderCar.brand +<span class="string">' 留言内容 : '</span> +orderCar.client.message );</div><div class="line">orderCar.client.changeMessage(<span class="string">'请马上电话联系我'</span>)</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'The'</span> + orderCar.client.name + <span class="string">'先生、下单一辆'</span> + orderCar.color + <span class="string">'的'</span> + orderCar.brand +<span class="string">' 留言内容 : '</span> +orderCar.client.message );</div><div class="line"></div><div class="line">----------执行结果--------</div><div class="line"></div><div class="line">TheVendar-MH先生、下单一辆yellow的Tesla 留言内容 : 无留言</div><div class="line">TheVendar-MH先生、下单一辆yellow的Tesla 留言内容 : 请马上电话联系我</div></pre></td></tr></table></figure>
+<p>好了,就算是关于这个订单的更加复杂的需求，或者修改需求，不管我们多少各功能在用，我们只要微微一笑，修改下prototype等实现就好了0.0</p>
+<hr>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="www.liudongmei.top/2017/04/28/it-20170428js/" data-id="cj592jy2v0009k8ww0tqhoowq" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/05/17/qianduan/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          一些心得
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/04/26/vue-cli/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">vue-cli#2.0 webpack 配置分析</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ajax/">Ajax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp/">gulp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/immutable/">immutable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/itemr2/">itemr2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuex/">vuex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习/">学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小技巧/">小技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心得/">心得</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/环境/">环境</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/ES6/" style="font-size: 12.5px;">ES6</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/angular/" style="font-size: 17.5px;">angular</a> <a href="/tags/gulp/" style="font-size: 10px;">gulp</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/immutable/" style="font-size: 10px;">immutable</a> <a href="/tags/itemr2/" style="font-size: 10px;">itemr2</a> <a href="/tags/javascript/" style="font-size: 12.5px;">javascript</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 12.5px;">mac</a> <a href="/tags/vuex/" style="font-size: 10px;">vuex</a> <a href="/tags/学习/" style="font-size: 12.5px;">学习</a> <a href="/tags/小技巧/" style="font-size: 10px;">小技巧</a> <a href="/tags/心得/" style="font-size: 10px;">心得</a> <a href="/tags/环境/" style="font-size: 10px;">环境</a> <a href="/tags/随笔/" style="font-size: 15px;">随笔</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/07/12/vuex/">vuex理解</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/04/react/">React文档翻译 (快速入门)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/25/it-2017Immutable/">Immutable的认识</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/12/ajax/">原生Ajax的实现</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/01/it-20170601js/">谈谈JS构造函数!!</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 个人博客<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

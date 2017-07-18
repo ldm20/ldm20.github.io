@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>React文档翻译 (快速入门) | 刘冬梅的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="翻译自react的大部分文档，方便自己查阅。">
+<meta name="keywords" content="ES6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React文档翻译 (快速入门)">
+<meta property="og:url" content="www.liudongmei.top/2017/07/04/react/index.html">
+<meta property="og:site_name" content="刘冬梅的博客">
+<meta property="og:description" content="翻译自react的大部分文档，方便自己查阅。">
+<meta property="og:updated_time" content="2017-07-18T04:15:16.700Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React文档翻译 (快速入门)">
+<meta name="twitter:description" content="翻译自react的大部分文档，方便自己查阅。">
+  
+    <link rel="alternate" href="/atom.xml" title="刘冬梅的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">刘冬梅的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">保持专注，持续发布。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="www.liudongmei.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-react" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/07/04/react/" class="article-date">
+  <time datetime="2017-07-04T13:50:00.000Z" itemprop="datePublished">2017-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      React文档翻译 (快速入门)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>翻译自react的大部分文档，方便自己查阅。</p>
+<a id="more"></a>
+<p>目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">生命周期</div><div class="line">实例化</div><div class="line">存在期</div><div class="line">销毁期</div><div class="line">state</div><div class="line">Do Not Modify State Directly</div><div class="line">State Updates May Be Asynchronous</div><div class="line">State Updates are Merged</div><div class="line">The Data Flows Down</div><div class="line">条件渲染(Conditional Rendering)</div><div class="line">使用&amp;&amp;操作符替换if</div><div class="line">使用?:替换if else</div><div class="line">Preventing Component from Rendering</div><div class="line">Lists and Keys</div><div class="line">Keys</div><div class="line">表单</div><div class="line">受控组件</div><div class="line">The textarea tag</div><div class="line">Select</div><div class="line">Handling Multiple Inputs</div><div class="line">Lifting State Up</div><div class="line">组合与继承</div><div class="line">Containment</div><div class="line">特殊化(Specialization)</div><div class="line">So What About Inheritance?</div><div class="line">思考React</div><div class="line">Step1: Break The UI Into A Component Hierarchy</div><div class="line">Step2: Build A Static Version In React</div><div class="line">Step3: Identify The Minimal (but complete) Representation Of UI State</div><div class="line">Step4: Identify Where You State Live</div><div class="line">Step5: Add Inverse Data Flow</div><div class="line">参考</div><div class="line">生命周期</div><div class="line">仅仅关于客户端的React</div></pre></td></tr></table></figure></p>
+<p>实例化</p>
+<p>getDefaultProps()<br>getInitialState()<br>componentWillMount()<br>render()<br>componentDidwMount()<br>存在期</p>
+<p>componentWillReceiveProps()<br>shouldComponentUpdate()<br>componentWillUpdate()<br>componentDidUpdate()<br>销毁期</p>
+<p>componentWillUnmount<br>state<br>Do Not Modify State Directly</p>
+<p>不能直接设置state, 这不会再次渲染一个component(this will not re-render a component), 只有一个地方可以直接设置state。</p>
+<p>// wrong, this<br>this.state = { comments: ‘Hello world’};<br>应该使用setState()方法。</p>
+<p>// true<br>this.setState({<br>  comments: ‘Hello world’,<br>});<br>State Updates May Be Asynchronous</p>
+<p>React可以将多个setState()调用分批到单个更新中以实现性能。</p>
+<p>因为this.props与this.state都可能是异步更新，因此不可以依靠它们的值来计算下一次的state。举例来说，下面就是错的:</p>
+<p>// wrong<br>this.setState({<br>  counter: this.state.counter + this.props.increment,<br>});</p>
+<p>为了解决这个问题，使用setState()的第二种形式，它接受一个函数，函数的第一个参数是之前的state, 第二个参数是props。</p>
+<p>// correct<br>this.setState((prevState, props) =&gt; ({<br>  counter: prevState.counter + props.increment,<br>}));<br>State Updates are Merged</p>
+<p>当你调用setState()的时候，React合并你提供的对象到当前的state当中。(When you call setState(), React merges the object you provide into the current state.)</p>
+<p>The Data Flows Down</p>
+<p>条件渲染(Conditional Rendering)<br>使用&amp;&amp;操作符替换if</p>
+<p>复制代码<br>function MailBox(props) {<br>  return (<br>    <div><br>      <h1>Hello!</h1><br>      {unreadMessages.length &gt; 0 &amp;&amp;<br>        <h2><br>          You have {unreadMessages.length} unread messages.<br>        </h2><br>      }<br>    </div><br>  );<br>}<br>复制代码</p>
+<p>但是这种方法，值得注意的是，return后面跟的最外层必须是html元素。而不能是下面这样:</p>
+<p>复制代码<br>function MailBox(props) {<br>  return (<br>    {unreadMessages.length &gt; 0 &amp;&amp;<br>      </p><h2><br>        You have {unreadMessages.length} unread messages.<br>      </h2><br>    }<br>  );<br>}<br>复制代码<p></p>
+<p>使用?:替换if else</p>
+<p>复制代码<br>render() {<br>  const isLoggedIn = this.state.isLoggedIn;<br>  return(<br>    <div><br>      The user is <b>{isLogginIn ? ‘currently’ : ‘not’}</b> logged in.<br>    </div><br>  );<br>}<br>复制代码<br>还可以用于更大的表达式。</p>
+<p>复制代码<br>render() {<br>  const isLoggedIn = this.state.isLoggedIn;<br>  return (<br>    <div><br>      {isLoggedIn ? (<br>        <logoutbutton onclick="{this.handleLogoutClick}"><br>      ) : (<br>        <loginbutton onclick="{this.handleLoginClick}"><br>      )}<br>    </loginbutton></logoutbutton></div><br>  );<br>}<br>复制代码<br>Preventing Component from Rendering</p>
+<p>极少的情况下，要让组件隐藏起来，那么可以通过return null来实现。</p>
+<p>Lists and Keys<br>在react中使用list，必须要为每个list的元素指定key(每个item的key是唯一的)。</p>
+<p>Keys</p>
+<p>keys帮助React确定哪些item已经改变了，被添加了或者被移除了。</p>
+<p>不推荐设置key的值是索引，如果这个数组要被排序的话(We don’t recommand using indexes for keys if the items can reorder, as that would be slow.)。因为这将会被慢。</p>
+<p>key只在周围数组的上下文中有意义。</p>
+<p>表单<br>在react中，HTML表单元素与其他DOM元素有所不一样。因为表单元素自然保持着一些内部状态。举例来说，这个HTML格式的表单接受一个单个的name:</p>
+<p>复制代码</p>
+<p><form><br>  <label><br>    Name:<br>    <input type="text" name="name"><br>  </label><br>  <input type="submit" value="Submit"><br></form><br>复制代码<br>这个表单拥有HTML表单的默认行为，当提交表单的时候，浏览器会打开一个新的页面。如果你在react中这么使用的话，它依然起作用。但是在大多数情况下，拥有一个可以处理表单并可访问用户输入表单的数据的JavaScript函数是很方便的。实现这一点的标准方法是使用一种叫作’受控组件’的技术。</p>
+<p>受控组件</p>
+<p>在HTML中，类似于input textarea select这样的表单元素通常维持着它们自己的状态，并且基于用户的输入更新。在React中，可变状态通常保存在组件的state属性中，并且只能通过setState()来更新。</p>
+<p>我们可以通过使react成为’真正的唯一来源’, 将两者结合起来。然后，呈现表单的React组件也控制后续用户输入时该表单中发生的情况。 一个输入表单元素的值被React控制，被称为受控组件。</p>
+<p>一个简单的受控组件如下：</p>
+<p>复制代码<br>class NameForm extends React.Component {<br>  constructor(props) {<br>    super(props);<br>    this.state = {value: ‘’,};<br>    this.handleChange = this.handleChange.bind(this);<br>    this.handleSubmit = this.handleSubmit.bind(this);<br>  }</p>
+<p>  handleChange(e) {<br>    this.setState({<br>      value: e.target.value,<br>    });<br>  }</p>
+<p>  handleSubmit(e) {<br>    console.log(this.state.value);<br>    e.preventDefault();<br>  }</p>
+<p>  render() {<br>    return (<br>      <form onsubmit="{this.handleSubmit}"><br>        <label><br>          name:<br>          <input type="text" value="{this.state.value}" onchange="{this.handleChange}"><br>        </label><br>        <input type="submit" value="Submit"><br>      </form><br>    );<br>  }<br>}<br>复制代码</p>
+<p>使用受控组件，每个状态的突变都具有相关联的处理函数。这使得修改或验证用户的输入很直接。举例来说，如果我们想要用户强制性这些名称用全部大写字母写，我们可以把handleChange写为:</p>
+<p>handleChange(e) {<br>  this.setState({<br>    value: e.target.value.toUpperCase(),<br>  });<br>}<br>The textarea tag</p>
+<p>在HTML中，一个textarea元素定义它的文本通过children来定义。</p>
+<p>而在React中，一个textarea元素是使用value属性来定义的。其使用方法和input差不多的。</p>
+<p>Select</p>
+<p>在HTML中，select创建一个下拉列表，比如像下面这样的:</p>
+<p><select><br>  <option value="baoma">baoma</option><br>  <option selected value="benchi">benchi</option><br>  <option value="aodi">aodi</option><br></select><br>而在React中，是在根select组件里使用value属性来选中的。在受控组件中，这更加方便，因为你只需要在一个地方更新它，比如下面这样:</p>
+<p>复制代码<br>class FormItem extends React.Component {<br>  constructor(props) {<br>    super(props);<br>    this.state = {value: ‘benchi’};<br>    this.handleChange = this.handleChange.bind(this);<br>    this.handleSubmit = this.handleSubmit.bind(this);<br>  }</p>
+<p>  handleChange(e) {<br>    this.setState({<br>      value: e.target.value,<br>    });<br>  }</p>
+<p>  handleSubmit(e) {<br>    console.log(e.state.value);<br>    e.preventDefault();<br>  }</p>
+<p>  render(<br>    return (<br>      <form onsubmit="{this.handleSubmit}" <label=""><br>          Pick your favorite car:<br>          <select value="{this.state.value}" onchange="{this.handleChange}"><br>            <option value="baoma">baoma</option><br>            <option value="benchi">benchi</option><br>            <option value="aodi">aodi</option><br>          </select><br>        <br>        <input type="submit" value="Submit"><br>      /&gt;<br>    );<br>  );<br>}</form></p>
+<p><input type="text"> <textarea> </textarea><select>它们都工作的差不多，它们都接受一个value属性，这个属性可以用来实现一个受控组件。<br>复制代码<br>Handling Multiple Inputs<br>当你需要处理多个受控组件input元素的时候，你可以给每个元素添加name属性，并且让处理函数根据该值(event.target.name)选择要进行的操作。</select></p>
+<p>举个例子:</p>
+<p>复制代码<br>class Reservation extends React.Component {<br>  constructor(props) {<br>    super(props);<br>    this.setState = {<br>      isGoing: true,<br>      numberOfGuests: 2,<br>    };</p>
+<pre><code>this.handleChange = this.handleChange.bind(this);
+</code></pre><p>  }</p>
+<p>  handleChange(e) {<br>    const target = e.target;<br>    const value = target.type === ‘checkbox’ ? target.checked : target.value;<br>    const name = target.name;</p>
+<pre><code>// es6 computed property name
+this.setState({
+  [name]: value,
+});
+</code></pre><p>  }</p>
+<p>  render() {<br>    return (<br>      <form><br>        <label><br>          Is going:<br>          <input name="isGoing" type="checkbox" checked="{this.state.isGoing}" onchange="{this.handleChange}"><br>        </label><br>        <br><br>        <label><br>          Number of guests:<br>          <input name="numberOfGuests" type="number" value="={this.state.numberOfGuests}" onchange="{this.handleChange}"><br>        </label><br>      </form><br>    );<br>  }<br>}<br>复制代码<br>可能你觉得太麻烦，你需要非受控组件</p>
+<p>Lifting State Up<br>在react中，共享state是通过将它移动到需要它的组件的最接近的共同祖先来实现的。这被称为提升状态。如果祖先拥有了共享状态，那么就有了source of true。</p>
+<p>官方文档给的那个例子，简单来说，两个组件的值相互依赖的时候，就将state提升到它们最近的共同祖先，通过在父组件里进行相应的值转换，然后通过props将值传递给子组件。然后两个子组件的值改变时，调用的函数是父组件传递下来的。</p>
+<p>因此, 可以通过子组件调父组件传递过来的函数,将子组件的值传递给父组件， 来改变父组件的state, 然后父组件计算值后，通过props将计算后的值分发到各个子组件，这样就保证了唯一的来源，而子组件的值也是相互依赖(有关联)的。 如下:</p>
+<p>复制代码<br>// 子组件<br>handleChange(e) {<br>  this.props.onTemperatureChange(e.target.value);<br>}</p>
+<input onchange="{this.handleChange}" type="text">
+
+<p>// 父组件<br>handleChange(value) {<br>  this.setState({<br>    temperature: value,<br>  });<br>}</p>
+<p><temperatureinput ontemperaturechage="{this.handleChange}"><br>复制代码<br>组合与继承<br>在React中，我们推荐使用组合来复用代码而不是继承。</temperatureinput></p>
+<p>Containment</p>
+<p>一些容器不能提前知道它们的children是谁。在Sidebar和Dialog里尤其的正常。</p>
+<p>我们推荐这类的组件使用特殊的children prop来将children直接传递到它们的输出中:</p>
+<p>复制代码<br>function FancyBorder(props) {<br>  return (<br>    <div classname="{'FancyBorder" fancyborder-'="" +="" props.color}=""><br>      {this.props.children}<br>   </div><br>  );<br>}<br>复制代码<br>然后让其他组件通过嵌入JSX传递任意个child给FancyBorder:</p>
+<p>复制代码<br>function WelcomeDialog() {<br>  return (<br>    <fancyborder color="blue"><br>      <h1 classname="Dialog-title"><br>        Welcome<br>      </h1><br>      <p classname="Dialog-message"><br>        Thank you for visiting our spacecraft!<br>      </p><br>    </fancyborder><br>  );<br>}<br>复制代码</p>
+<p><fancyborder>JSX标签中的任何内容都会作为子菜单传入FancyBorder组件。由于FancyBorder将{props.children}呈现在</fancyborder></p>
+<p>中，所以传递的元素将显示在最终输出中。一般在开发中，还可以在路由中控制this.props.children是谁。比如下面这样:<br>复制代码<br>// News.js<br>render() {<br>  return (<br>    <div classname="{style.container}"><br>      {this.props.children}<br>    </div><br>  );<br>}</p>
+<p>// routers.js<br>export function createRoutes() {<br>  return {<br>    path: ‘/‘,<br>    component: App,<br>    indexRoute: { component: Main },<br>    childRoutes: [<br>      {<br>        path: ‘:channel’,<br>        component: NewsList,<br>      }<br>    ],<br>  };<br>}<br>复制代码<br>这里News组件的子组件就是NewsList。</p>
+<p>虽然不常见，但是有时候你可能在组件里需要多个’hole’, 在这种情况下，你可能想出自己的习惯，而不是使用children:</p>
+<p>复制代码<br>function SplitPane(props) {<br>  return (<br>    <div classname="SplitPane"><br>      <div classname="SplitPane-left"><br>        {props.left}<br>      </div><br>      <div classname="SplitPane-right"><br>        {props.right}<br>      </div><br>    </div><br>  );<br>}</p>
+<p>function App() {<br>  return (<br>    <splitpane left="{" <contacts=""><br>      }<br>      right={<br>        <chat><br>      }<br>    /&gt;<br>  );<br>}<br>复制代码<br>特殊化(Specialization)<br>有时我们将组件视为其他组件的”特殊情况”。举例来说，我们可以说WelcomeDialog是Dialog的一种特殊情况。</chat></splitpane></p>
+<p>在React中，这通常由组合来实现，其中一个更”特定”的组件呈现出更”通用的组件”, 并且使用props来配置它。</p>
+<p>复制代码<br>function Dialog(props) {<br>  return (<br>    <fancyborder color="blue"><br>      <h1 classname="Dialog-title"><br>        {props.title}<br>      </h1><br>      <p classname="Dialog-title"><br>        {props.message}<br>      </p><br>    </fancyborder><br>  );<br>}</p>
+<p>function WelcomeDialog() {<br>  return (<br>    <dialog title="Welcome" message="Thank you for visiting our spacecraft!"><br>  );<br>}<br>复制代码<br>组合对于定义为类的组件同样适用。</dialog></p>
+<p>复制代码<br>function Dialog(props) {<br>  return (<br>    <fancyborder color="blue"><br>      <h1 classname="Dialog-title"><br>        {props.title}<br>      </h1><br>      <p classname="Dialog-message"><br>        {props.messgae}<br>      </p><br>      {props.children}<br>    </fancyborder><br>  );<br>}</p>
+<p>class SignUpDialog extends React.Component {<br>  constructor(props) {<br>    super(props);<br>    this.handleChange = this.handleChange.bind(this);<br>    this.handleSignUp = this.handleSignUp.bind(this);<br>    this.state = {login: ‘’};<br>  }</p>
+<p>  handleChange(e) {<br>    this.setState({<br>      login: e.target.value,<br>    });<br>  }</p>
+<p>  handleSignUp() {<br>    alert(<code>Welcome aboard, ${this.state.login}!</code>);<br>  }</p>
+<p>  render() {<br>    return (<br>      <dialog title="Mars Exploration Program" message="How should we refer to you?"><br>        <input value="{this.state.login}" onchange="{this.handleChange}"><br>        <button onclick="{this.handleSignUp}"><br>          Sign Me Up!<br>        </button><br>      </dialog><br>    );<br>  }<br>}</p>
+<p>So What About Inheritance?</p>
+<p>在Facebook, 我们在数千计的组件中，还没有发现任何一种情况值得我们推荐使用继承。使用Props和composition就已经很完美了。</p>
+<p>思考React<br>Step1: Break The UI Into A Component Hierarchy</p>
+<p>使用单一任务原则，也就是说，一个组件理想上只做一件事情。</p>
+<p>Step2: Build A Static Version In React</p>
+<p>使用mock数据构架一个没有交互的静态版本。因为构建一个静态的版本，需要大量的typing和不需要思考太多，而构建一个交互性的版本需要大量的思考，而不需要大量的typing。<br>如果你很熟悉state的概念，那么就不要使用state来构建静态的版本, state只是为了交互而保留的。<br>你既可以自下向上进行构建，也可以自上向下构建。在简单的例子中，通常更容易自上而下；而在较大的例子中，自下而上通常更容易一些，并且也更容易写测试。</p>
+<p>Step3: Identify The Minimal (but complete) Representation Of UI State</p>
+<p>要使你的应用可以交互，你需要能够触发底层数据模型的更改, State让这一切变得很容易。<br>为了正确的构建你的app，首先你需要思考你的app需要的最小的可变的state集。这里很关键的是DRY: Don’t repeat yourself。找出你的app需要的state集的最小表示，并计算出你所需要的其他需求。举例来说，如果你要构建一个Todo List, 只需要维持一个todo items的数组，不需要为数量单独保持一个state的变量。当你想要渲染todo的数量时，只需要取todos数组的长度就可以了。</p>
+<p>如何区分是数据是state还是props，只需要问下面这三个问题:</p>
+<p>它是从父组件从props传递过来的吗？如果是，那么它不是state。<br>它会随着时间的推移保持不变吗？如果是，那么它不是state。<br>你可以根据组件中的其他state或props计算出它来吗？如果可以，那么它不是state。<br>Step4: Identify Where You State Live</p>
+<p>当我们确定app的最小的state集后。下一步，我们需要确定是哪一个组件拥有state。<br>记住: React是单向数据流，可能不能立即清楚哪个组件拥有哪个state。这对于新手来说也是最大的挑战，因此根据下面这些步骤来解决这个问题:</p>
+<p>对于你的应用中的每个state:</p>
+<p>识别出基于那个state渲染的所有组件。<br>找一个通用的组件find a common owner component(单个组件，它是所有需要那个state的组件的父级组件)。<br>公共所有者(The common owner)或层次结构中较高的其他组件应该拥有state。<br>如果你找不到拥有state的组件，就创建一个新的组件，仅用于保存state，并将其添加到所有者组件上方的层次结构中。<br>Step5: Add Inverse Data Flow</p>
+<p>子组件通过props调用父级组件 传递过来的方法(回调)来改变父级的state。</p>
+<p>参考<br>react官方文档<br>react生命周期</p>
+<hr>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="www.liudongmei.top/2017/07/04/react/" data-id="cj592jy4h001dk8wwmlh1raqh" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/07/12/vuex/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          vuex理解
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/06/25/it-2017Immutable/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Immutable的认识</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ajax/">Ajax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp/">gulp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/immutable/">immutable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/itemr2/">itemr2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuex/">vuex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习/">学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小技巧/">小技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心得/">心得</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/环境/">环境</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/ES6/" style="font-size: 12.5px;">ES6</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/angular/" style="font-size: 17.5px;">angular</a> <a href="/tags/gulp/" style="font-size: 10px;">gulp</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/immutable/" style="font-size: 10px;">immutable</a> <a href="/tags/itemr2/" style="font-size: 10px;">itemr2</a> <a href="/tags/javascript/" style="font-size: 12.5px;">javascript</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 12.5px;">mac</a> <a href="/tags/vuex/" style="font-size: 10px;">vuex</a> <a href="/tags/学习/" style="font-size: 12.5px;">学习</a> <a href="/tags/小技巧/" style="font-size: 10px;">小技巧</a> <a href="/tags/心得/" style="font-size: 10px;">心得</a> <a href="/tags/环境/" style="font-size: 10px;">环境</a> <a href="/tags/随笔/" style="font-size: 15px;">随笔</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/07/12/vuex/">vuex理解</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/04/react/">React文档翻译 (快速入门)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/25/it-2017Immutable/">Immutable的认识</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/12/ajax/">原生Ajax的实现</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/01/it-20170601js/">谈谈JS构造函数!!</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 个人博客<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

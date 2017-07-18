@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>vuex理解 | 刘冬梅的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="keywords" content="Vue,vuex">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vuex理解">
+<meta property="og:url" content="www.liudongmei.top/2017/07/12/vuex/index.html">
+<meta property="og:site_name" content="刘冬梅的博客">
+<meta property="og:image" content="https://vuex.vuejs.org/zh-cn/images/vuex.png">
+<meta property="og:updated_time" content="2017-07-18T04:15:18.774Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vuex理解">
+<meta name="twitter:image" content="https://vuex.vuejs.org/zh-cn/images/vuex.png">
+  
+    <link rel="alternate" href="/atom.xml" title="刘冬梅的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">刘冬梅的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">保持专注，持续发布。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="www.liudongmei.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-vuex" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/07/12/vuex/" class="article-date">
+  <time datetime="2017-07-12T11:55:00.000Z" itemprop="datePublished">2017-07-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      vuex理解
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="https://vuex.vuejs.org/zh-cn/images/vuex.png" alt=""></p>
+<a id="more"></a>
+<p>之前使用vuex一直都是半懂半不懂的今天系统的了解了下vuex终于理解差不多了下面分享下个人理解<br>vuex是什么？</p>
+<p>vuex是一个状态管理器把所有状态都存在store这个容器里面</p>
+<p>vuex能做什么？</p>
+<p>vuex能够很好的解决组件中的通信，让数据更清晰明了，更容易管理。</p>
+<p>vuex怎么使用？</p>
+<p>1 安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install vuex --save</div></pre></td></tr></table></figure></p>
+<p>2 在一个模块化的打包系统中，您必须显式地通过 Vue.use() 来安装 Vuex：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">import Vue from &apos;vue&apos;;</div><div class="line">import Vuex from &apos;vuex&apos;;</div><div class="line">Vue.use(Vuex);</div><div class="line">import state from &apos;./state&apos;;</div><div class="line">import actions from &apos;./actions&apos;;</div><div class="line">import mutations from &apos;./mutations&apos;;</div><div class="line">import getters from &apos;./getters&apos;;</div><div class="line">export default new Vuex.Store(&#123;</div><div class="line">  state, actions, mutations, getters</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>3 在路口文件main.js中引入 store<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">import stroe from &apos;./store&apos;</div><div class="line">new Vue(&#123;</div><div class="line">  el: &apos;#app&apos;,</div><div class="line">  router,</div><div class="line">  store, //main.js注入store</div><div class="line">  template: &apos;&lt;App/&gt;&apos;,</div><div class="line">  components: &#123; App &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>项目store目录下的文件index为store注入vue文件<br>.<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">├── actions.js</div><div class="line">├── getters.js</div><div class="line">├── index.js</div><div class="line">├── mutations.js</div><div class="line">├── state.js</div><div class="line">└── types.js</div><div class="line">0 directories, 6 files</div></pre></td></tr></table></figure></p>
+<p>重点来了</p>
+<p>state.js文件存放store中的数据字段<br>getters.js文件存在获取store.state的方法,<br>mutations.js文件存放修改state的方法 mutations是同步操作<br>actions.js存放异步操作state方法，在vuex中只有mutations才能修改state actions还是调用的mutations</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="www.liudongmei.top/2017/07/12/vuex/" data-id="cj592jy4n001lk8ww6ax0lpjl" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vuex/">vuex</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/07/04/react/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">React文档翻译 (快速入门)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ajax/">Ajax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp/">gulp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/immutable/">immutable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/itemr2/">itemr2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuex/">vuex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习/">学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小技巧/">小技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心得/">心得</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/环境/">环境</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/ES6/" style="font-size: 12.5px;">ES6</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/angular/" style="font-size: 17.5px;">angular</a> <a href="/tags/gulp/" style="font-size: 10px;">gulp</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/immutable/" style="font-size: 10px;">immutable</a> <a href="/tags/itemr2/" style="font-size: 10px;">itemr2</a> <a href="/tags/javascript/" style="font-size: 12.5px;">javascript</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 12.5px;">mac</a> <a href="/tags/vuex/" style="font-size: 10px;">vuex</a> <a href="/tags/学习/" style="font-size: 12.5px;">学习</a> <a href="/tags/小技巧/" style="font-size: 10px;">小技巧</a> <a href="/tags/心得/" style="font-size: 10px;">心得</a> <a href="/tags/环境/" style="font-size: 10px;">环境</a> <a href="/tags/随笔/" style="font-size: 15px;">随笔</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/07/12/vuex/">vuex理解</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/04/react/">React文档翻译 (快速入门)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/25/it-2017Immutable/">Immutable的认识</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/12/ajax/">原生Ajax的实现</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/01/it-20170601js/">谈谈JS构造函数!!</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 个人博客<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
